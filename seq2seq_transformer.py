@@ -2,30 +2,21 @@ import torch
 import torch.nn as nn
 import torch.optim as optim
 import spacy
-# from utils import translate_sentence, bleu, save_checkpoint, load_checkpoint
 from torch.utils.tensorboard import SummaryWriter
 from torchtext.datasets import Multi30k
 from torchtext.legacy.data import Field, BucketIterator
 from utils import translate_sentence, bleu, save_checkpoint, load_checkpoint
-"""
-To install spacy languages do:
-python -m spacy download en
-python -m spacy download de
-"""
+
 spacy_ger = spacy.load("de")
 spacy_eng = spacy.load("en")
-
 
 def tokenize_ger(text):
     return [tok.text for tok in spacy_ger.tokenizer(text)]
 
-
 def tokenize_eng(text):
     return [tok.text for tok in spacy_eng.tokenizer(text)]
 
-
 german = Field(tokenize=tokenize_ger, lower=True, init_token="<sos>", eos_token="<eos>")
-
 english = Field(
     tokenize=tokenize_eng, lower=True, init_token="<sos>", eos_token="<eos>"
 )
